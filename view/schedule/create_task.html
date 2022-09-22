@@ -3,18 +3,26 @@
 {%block title%}タスク作成{%endblock%}
 
 {%block contents%}
-{% if isLogin %}
+{% if isAuthenticated %}
 <div class="card container" style="width:50%;">
     <div class="card-body">
         <h3 class="card-title">タスク作成</h3>
         <form action="" method="POST" name="user_info">
             <label for="inputName" class="form-label">TaskName</label>
-            <input type="text" id="inputName" class="form-control" name="email">
-            <label for="inputDatetime" class="form-label">datetime</label>
-            <input type="datetime-local" id="inputDatetime" class="form-control" name="datetime">
+            <input type="text" id="inputName" class="form-control" name="name">
+            <label for="inputDate" class="form-label">date</label>
+            <input type="date" id="inputDate" class="form-control" name="date">
+            <label for="inputTime" class="form-label">time</label>
+            <input type="time" id="inputTime" class="form-control" name="time">
             <br>
             <button type="submit" class="btn btn-primary">タスクの作成</button>
         </form>
+        {%for error in errors%}
+        <h3 class="text-danger">{{error}}</h3>
+        {%endfor%}
+        {%if isSuccess%}
+        <h3>{{isSuccess}}を作成しました。</h3>
+        {%endif%}
     </div>
 </div>
 {%else%}

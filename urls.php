@@ -18,6 +18,7 @@
     );
     include_app("test");
     include_app("auth");
+    include_app("schedule");
     if(array_key_exists($_SERVER["REQUEST_URI"],$urls)){
         include $urls[$_SERVER["REQUEST_URI"]];
     }else{

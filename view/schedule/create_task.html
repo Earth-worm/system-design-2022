@@ -1,0 +1,23 @@
+{%extends "_base.html"%}
+
+{%block title%}タスク作成{%endblock%}
+
+{%block contents%}
+{% if isLogin %}
+<div class="card container" style="width:50%;">
+    <div class="card-body">
+        <h3 class="card-title">タスク作成</h3>
+        <form action="" method="POST" name="user_info">
+            <label for="inputName" class="form-label">TaskName</label>
+            <input type="text" id="inputName" class="form-control" name="email">
+            <label for="inputDatetime" class="form-label">datetime</label>
+            <input type="datetime-local" id="inputDatetime" class="form-control" name="datetime">
+            <br>
+            <button type="submit" class="btn btn-primary">タスクの作成</button>
+        </form>
+    </div>
+</div>
+{%else%}
+<h3>ログインされていません。</h3>
+{%endif%}
+{%endblock%}

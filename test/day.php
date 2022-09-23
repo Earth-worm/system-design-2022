@@ -63,7 +63,7 @@
         public $childs = array();
         public $attrs = NULL;
         public $innerText = NULL;
-        function __construct($_tag,$_isClosed=true,$_isSlash=false,$_innerText=NULL,$_attrs=NULL){
+        function __construct($_tag,$_attrs=NULL,$_isClosed=true,$_innerText=NULL,$_isSlash=false){
             $this->tag = $_tag;
             $this->isClosed = $_isClosed;
             $this->isSlash = $_isSlash;
@@ -117,25 +117,7 @@
         }
     }
     
+    $before = date("d",strtotime($_tarMonth."-01 before this day"));
+    echo $before."<br>";
     $schedule = new Schedule("2022-10");
-    $schedule->addTask(10,"birthday",True);
-    $schedule->genHTML();
-    $div = new Hierarchy("div",true,false,NULL,"class='btn btn-primary'");
-    $tags = ["div","button","form","input","li","ul"];
-    $texts = ["hello","goodnight","help","wannasleep"];
-    for($i=0;$i<5;$i++){
-        $num = rand()%5+1;
-        $c = new Hierarchy($tags[rand()%6],true,false,NULL);
-        for($j=0;$j<$num;$j++){
-            $num2 =rand()%5+1;
-            $b = new Hierarchy($tags[rand()%6],true,false,NULL);
-            for($k=0;$k<$num2;$k++){
-                $a = new Hierarchy($tags[rand()%6],true,false,$texts[rand()%4],NULL);
-                $b->appendChild($a);
-            }
-            $c->appendChild($b);
-        }
-        $div->appendChild($c);
-    }
-    echo $div->HTML();
 ?>

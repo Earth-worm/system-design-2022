@@ -7,6 +7,7 @@
         public $childs = array();
         public $attrs = NULL;
         public $innerText = NULL;
+
         function __construct($_tag,$_attrs=NULL,$_innerText=NULL,$_isClosed=true,$_isSlash=false){
             $this->tag = $_tag;
             $this->isClosed = $_isClosed;
@@ -14,9 +15,11 @@
             $this->innerText = $_innerText;
             $this->attrs = $_attrs;
         }
+
         function appendChild($_child){
             array_push($this->childs,$_child);
         }
+
         function addTab($_strList){
             $rtn = array();
             foreach($_strList as $line){
@@ -24,6 +27,7 @@
             }
             return $rtn;
         }
+
         function _HTML(){
             $rtn;
             if(!$this->isClosed){
@@ -52,6 +56,7 @@
             array_push($rtn,"</".$this->tag.">\n");
             return $rtn;
         }
+
         function HTML(){
             $rtn = "";
             foreach($this->_HTML() as $line){
@@ -60,6 +65,7 @@
             return $rtn;
         }
     }
+
     class Task{
         public $name;
         public $time;
@@ -68,23 +74,32 @@
             $this->time = $_time;
         }
     }
+
     class Day{ //一日のスケジュールのデータ構造
         public $isHoliday = false;
         public $Attrs = array();
+
+        function __construct($_isHoliday=false){
+            $this->isHoliday = $_isHoliday;
+        }
+        
         function addAttrs($_name,$_time,$_isHoliday){
             $this->isHoliday = $this->isHoliday or $_isHoliday;
             $newTask = new Task($_name,$_time);
             array_push($this->Attrs,$newTask);
         }
-        function __construct($_isHoliday=false){
-            $this->isHoliday = $_isHoliday;
+
+        function hasTasks(){
+            return (count($this->Attrs)!=0);
         }
     }
+
     class Schedule{ //一か月のスケジュールのデータ構造
         public $firstWeek;
         public $lastDay;
         public $month = array();
         public $tarMonth;
+
         function __construct($_tarMonth){
             $this->tarMonth = $_tarMonth;
             $this->firstWeek = intval(date("w",strtotime($_tarMonth." first day of this month")));
@@ -96,6 +111,7 @@
                 }
             }
         }
+
         function addTask($_day,$_name,$_isHoliday,$_time=NULL){ //予定の追加
             if(!array_key_exists($_day,$this->month)){
                 $newDay = new Day();
@@ -103,6 +119,7 @@
             }
             $this->month[$_day]->addAttrs($_name,$_time,$_isHoliday);
         }
+
         function genHTML(){ //一か月のタスクからスケジュールのhtml文を生成
             $before = intval(date("d",strtotime($this->tarMonth."-01 -1 day")));
             $lastWeek = intval(date("w",strtotime($this->tarMonth." last day of this month")));
@@ -115,16 +132,32 @@
             $par->appendChild($head);
             $week = new Hierarchy("div","class='row'");
             for($i=0;$i<$this->firstWeek;$i++){
-                $child = new Hierarchy("div","class='col'",$before+$i-$this->firstWeek+1);
+                $child = new Hierarchy("div","class='col'");
+                $h1 = new Hierarchy("h1",NULL,$before+$i-$this->firstWeek+1);
+                $child->appendChild($h1);
                 $week->appendChild($child);
             }
             for($i=1;$i<=$this->lastDay;$i++){
                 $holiday = false;
                 if(array_key_exists($i,$this->month)){
                     $holiday = $this->month[$i]->isHoliday;
-                    $child = new Hierarchy("div","class = 'col holiday'",$i);
+                    $class = "class='col'";
+                    if($holiday){
+                        $class = "class='col holiday'";
+                    }
+                    $child = new Hierarchy("div",$class);
+                    $h1 = new Hierarchy("h1",NULL,$i);
+                    $child->appendChild($h1);
+                    if($this->month[$i]->hasTasks()){
+                        foreach($this->month[$i]->Attrs as $task){
+                            $h1 = new Hierarchy("h1",NULL,$task->name);
+                            $child->appendChild($h1);
+                        }
+                    }
                 }else{
-                    $child = new Hierarchy("div","class='col'",$i);
+                    $child = new Hierarchy("div","class='col'");
+                    $h1 = new Hierarchy("h1",NULL,$i);
+                    $child->appendChild($h1);
                 }
                 $week->appendChild($child);
                 if(($i+$this->firstWeek-1)%7==6){
@@ -133,7 +166,9 @@
                 }
             }
             for($i=0;$i<6-$lastWeek;$i++){
-                $child = new Hierarchy("div","class='col'",$i+1);
+                $child = new Hierarchy("div","class='col'");
+                $h1 = new Hierarchy("h1",NULL,$i+1);
+                $child->appendCHild($h1);
                 $week->appendChild($child);
             }
             $par->appendChild($week);
@@ -149,13 +184,12 @@
     $month = date("Y-m");
     $isAuthenticated = isset($_SESSION["id"]);
     $schedule = new Schedule($month);
-    $html =  $schedule->genHTML();
     $db = new Sqlite3("db.sqlite3");
     $rtn = $db->query("select * from task where date like '".$month."%'");
     while($row = $rtn->fetchArray()){
-        var_dump($row);
-        echo "<br>";
+        $schedule->addTask(intval(substr($row["date"],-2)),$row["name"],$row["holiday"],$row["time"]);
     }
+    $html =  $schedule->genHTML();
     $context = array(
         "isAuthenticated"=>$isAuthenticated,
         "html"=>$html,

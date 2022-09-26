@@ -1,5 +1,5 @@
 <?php
-    //時間があれば内閣hpから休日のデータを読み込め（あどみん）
+    //時間があれば内閣hpから休日のデータを読み込む（あどみん）
     class Hierarchy{ //タグの階層構造を管理、htmlを生成
         public $tag = "";
         public $isClosed = true;
@@ -17,7 +17,7 @@
         function appendChild($_child){
             array_push($this->childs,$_child);
         }
-        function addTab($_strList){ //全部の行に水平tabを追加
+        function addTab($_strList){
             $rtn = array();
             foreach($_strList as $line){
                 array_push($rtn,"\t".$line);
@@ -35,9 +35,9 @@
             }
             if($this->innerText){
                 if(isset($this->attrs)){
-                    return array("<".$this->tag." ".$this->attrs.">".$this->innerText."<".$this->tag.">\n");
+                    return array("<".$this->tag." ".$this->attrs.">".$this->innerText."</".$this->tag.">\n");
                 }else{
-                    return array("<".$this->tag.">".$this->innerText."<".$this->tag.">\n");
+                    return array("<".$this->tag.">".$this->innerText."</".$this->tag.">\n");
                 }
             }
             $rtn;
@@ -52,7 +52,7 @@
             array_push($rtn,"</".$this->tag.">\n");
             return $rtn;
         }
-        function HTML(){ //自分の下についている階層構造からhtmlを作成
+        function HTML(){
             $rtn = "";
             foreach($this->_HTML() as $line){
                 $rtn = $rtn.$line;
@@ -60,7 +60,7 @@
             return $rtn;
         }
     }
-    class Task{ //タスクのデータ構造
+    class Task{
         public $name;
         public $time;
         function __construct($_name,$_time){
@@ -81,11 +81,11 @@
         }
     }
     class Schedule{ //一か月のスケジュールのデータ構造
-        public $firstWeek; //月初めの曜日
-        public $lastDay; //月終わりの日付
-        public $month = array(); //Dayクラスの配列
+        public $firstWeek;
+        public $lastDay;
+        public $month = array();
         public $tarMonth;
-        function __construct($_tarMonth){ //$_tarMonth:str y-m
+        function __construct($_tarMonth){
             $this->tarMonth = $_tarMonth;
             $this->firstWeek = intval(date("w",strtotime($_tarMonth." first day of this month")));
             $this->lastDay = intval(date("d",strtotime($_tarMonth." last day of this month")));
@@ -106,43 +106,59 @@
         function genHTML(){ //一か月のタスクからスケジュールのhtml文を生成
             $before = intval(date("d",strtotime($this->tarMonth."-01 -1 day")));
             $lastWeek = intval(date("w",strtotime($this->tarMonth." last day of this month")));
-            $table = new Hierarchy("table");
-            $head = new Hierarchy("tr");
+            $par = new Hierarchy("div","class='container'");
+            $head = new Hierarchy("div","class='row'");
             foreach(array("日","月","火","水","木","金","土") as $day){
-                $th = new Hierarchy("th",NULL,$day);
-                $head->appendChild($th);
+                $child = new Hierarchy("div","class='col'",$day);
+                $head->appendChild($child);
             }
-            $table->appendChild($head);
-            $week = new Hierarchy("tr");
+            $par->appendChild($head);
+            $week = new Hierarchy("div","class='row'");
             for($i=0;$i<$this->firstWeek;$i++){
-                $td = new Hierarchy("td","bgcolor='black'",$before+$i-$this->firstWeek+1);
-                $week->appendChild($td);
+                $child = new Hierarchy("div","class='col'",$before+$i-$this->firstWeek+1);
+                $week->appendChild($child);
             }
             for($i=1;$i<=$this->lastDay;$i++){
+                $holiday = false;
                 if(array_key_exists($i,$this->month)){
-                    $class = "bgcolor='white'";
-                    if($this->month[$i]->isHoliday){
-                        $class = "bgcolor='red'";
-                    }
-                    $td = new Hierarchy("td",$class,$i);
+                    $holiday = $this->month[$i]->isHoliday;
+                    $child = new Hierarchy("div","class = 'col holiday'",$i);
                 }else{
-                    $td = new Hierarchy("td","bgcolor='white'",$i);
+                    $child = new Hierarchy("div","class='col'",$i);
                 }
-                $week->appendChild($td);
+                $week->appendChild($child);
                 if(($i+$this->firstWeek-1)%7==6){
-                    $table->appendChild($week);
-                    $week = new Hierarchy("tr");
+                    $par->appendChild($week);
+                    $week = new Hierarchy("div","class='row'");
                 }
             }
             for($i=0;$i<6-$lastWeek;$i++){
-                $td = new Hierarchy("td","bgcolor='black'",$i+1);
-                $week->appendChild($td);
+                $child = new Hierarchy("div","class='col'",$i+1);
+                $week->appendChild($child);
             }
-            $table->appendChild($week);
-            return $table->HTML();
+            $par->appendChild($week);
+            return $par->HTML();
         }
     }
-    $before = date("d",strtotime("2022-09-01 -1 day"));
-    $schedule = new Schedule(date("Y-m"));
-    echo $schedule->genHTML();
+    
+    session_start();
+    require_once '../vendor/autoload.php';
+    $loader = new \Twig\Loader\FilesystemLoader('view');
+    $twig = new \Twig\Environment($loader);
+
+    $month = date("Y-m");
+    $isAuthenticated = isset($_SESSION["id"]);
+    $schedule = new Schedule($month);
+    $html =  $schedule->genHTML();
+    $db = new Sqlite3("db.sqlite3");
+    $rtn = $db->query("select * from task where date like '".$month."%'");
+    while($row = $rtn->fetchArray()){
+        var_dump($row);
+        echo "<br>";
+    }
+    $context = array(
+        "isAuthenticated"=>$isAuthenticated,
+        "html"=>$html,
+    );
+    echo $twig->render('schedule/task_list.html',$context);
 ?>

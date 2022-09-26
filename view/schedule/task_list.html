@@ -1,0 +1,11 @@
+{%extends "_base.html"%}
+
+{%block title%}スケジュール{%endblock%}
+
+{%block contents%}
+{% if isAuthenticated %}
+{{html | raw}}
+{%else%}
+<h3>ログインされていません。</h3>
+{%endif%}
+{%endblock%}

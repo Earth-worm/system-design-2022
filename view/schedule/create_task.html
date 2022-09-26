@@ -15,6 +15,9 @@
             <label for="inputTime" class="form-label">time</label>
             <input type="time" id="inputTime" class="form-control" name="time">
             <br>
+            <input class="form-check-input" type="checkbox" value="" id="holiday" name="holiday">
+            <label class="form-check-label" for="holiday">休日</label>
+            <br>
             <button type="submit" class="btn btn-primary">タスクの作成</button>
         </form>
         {%for error in errors%}

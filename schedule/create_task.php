@@ -14,6 +14,7 @@
         $name = $_POST["name"];
         $date = $_POST["date"];
         $time = $_POST["time"];
+        $holiday = isset($_POST["holiday"]);
         if(empty($name)){
             array_push($errors,"名前が入力されていません。");
         }
@@ -25,9 +26,17 @@
             $db = new Sqlite3("db.sqlite3");
             $query = "";
             if(strcmp($time,"")==0){
-                $query = "insert into task(name,date,time,user_id) values('".$name."','".$date."',NULL,'".$user_id."')";
+                if($holiday){
+                    $query = "insert into task(name,date,time,user_id,holiday) values('".$name."','".$date."',NULL,'".$user_id."',True)";
+                }else{
+                    $query = "insert into task(name,date,time,user_id,holiday) values('".$name."','".$date."',NULL,'".$user_id."',False)";
+                }
             }else{
-                $query = "insert into task(name,date,time,user_id) values('".$name."','".$date."','".$time."','".$user_id."')";
+                if($holiday){
+                    $query = "insert into task(name,date,time,user_id,holiday) values('".$name."','".$date."','".$time."','".$user_id."',True)";
+                }else{
+                    $query = "insert into task(name,date,time,user_id,holiday) values('".$name."','".$date."','".$time."','".$user_id."',False)";
+                }
             }
             $db->query($query);
             $isSuccess = $name;

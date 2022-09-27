@@ -1,9 +1,14 @@
 <?php
+    session_start();
     require_once '../vendor/autoload.php';
     $loader = new \Twig\Loader\FilesystemLoader('view');
     $twig = new \Twig\Environment($loader);
     use Ramsey\Uuid\Uuid;
-
+    
+    $isAuthenticated = false;
+    if(isset($_SESSION["id"])){
+        $isAuthenticated = $_SESSION["name"];
+    }
     $errors = array();
     $isSuccess = false;
     if($_SERVER["REQUEST_METHOD"]=="POST"){
@@ -43,7 +48,7 @@
     $context = array(
         "errors"=>$errors,
         "isSuccess"=>$isSuccess,
+        "isAuthenticated"=>$isAuthenticated,
     );
-    var_dump($_POST);
     echo $twig->render('auth/signin.html', $context);
 ?>

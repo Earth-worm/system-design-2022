@@ -1,0 +1,55 @@
+{%extends "_base.html"%}
+
+{%block title%}タスク編集{%endblock%}
+
+{%block contents%}
+{% if isAuthenticated %}
+{% if isDeleted %}
+<h3>{{isDeleted}}は削除されました。</h3>
+{%else%}
+<div class="card container" style="width:50%;">
+    <div class="card-body">
+        <h3 class="card-title">タスク編集</h3>
+        <form action="" method="POST" name="user_info">
+            <label for="inputName" class="form-label">TaskName</label>
+            <input type="text" id="inputName" class="form-control" name="name" value="{{task.name}}">
+            <label for="inputDate" class="form-label">date</label>
+            <input type="date" id="inputDate" class="form-control" name="date" value="{{task.date}}">
+            {%if task.time%}
+            <label for="inputTime" class="form-label">time</label>
+            <input type="time" id="inputTime" class="form-control" name="time" value="{{task.time}}">
+            {%else%}
+            <label for="inputTime" class="form-label">time</label>
+            <input type="time" id="inputTime" class="form-control" name="time">
+            {%endif%}
+            <br>
+            {%if task.isHoliday%}
+            <input class="form-check-input" type="checkbox" id="holiday" name="holiday" checked>
+            <label class="form-check-label" for="holiday">休日</label>
+            {%else%}
+            <input class="form-check-input" type="checkbox" id="holiday" name="holiday">
+            <label class="form-check-label" for="holiday">休日</label>
+            {%endif%}
+            <br>
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary">タスクの作成</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-danger" name="delete">タスクの削除</button>
+                </div>
+            </div>
+        </form>
+        {%for error in errors%}
+        <h3 class="text-danger">{{error}}</h3>
+        {%endfor%}
+        {%if isSuccess%}
+        <h3>{{isSuccess}}を作成しました。</h3>
+        {%endif%}
+    </div>
+</div>
+{%endif%}
+{%else%}
+<h3>ログインされていません。</h3>
+{%endif%}
+{%endblock%}

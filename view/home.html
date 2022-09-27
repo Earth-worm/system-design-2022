@@ -1,0 +1,18 @@
+{%extends "_base.html"%}
+
+{%block title%}ホーム{%endblock%}
+{%block contents%}
+{%if isAuthenticated%}
+<div class="container">
+    <div class="tools">
+        <div class="row schedule">
+            <a href="/schedule/tasklist"><h3>Schedule</h3></a>
+            <a href="/schedule/createtask"><h3>Create Task</h3></a>
+            <a href="/schedule/edittask"><h3>Edit Task</h3></a>
+        </div>
+    </div>
+</div>
+{%else%}
+<h3>ログインされていません。</h3>
+{%endif%}
+{%endblock%}

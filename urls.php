@@ -11,18 +11,24 @@
     #->中にurls.phpを作成
     #->urls.phpに$appUrlsという名で仮想連想配列を作成(key:url,value:ファイル名)
     #static fileは#static/{$_appName}/{$fileName}に保存
+
+    $request_url = $_SERVER["REQUEST_URI"];
+    if(!$request_url = strstr($request_url,"?",true)){
+        $request_url = $_SERVER["REQUEST_URI"];
+    }
     $urls = array(
         #"url"=>"filename"
         "/"=>"index.php",
         "/testhtml"=>"test.html",
+        "/home"=>"home.php",
     );
     include_app("test");
     include_app("auth");
     include_app("schedule");
-    if(array_key_exists($_SERVER["REQUEST_URI"],$urls)){
-        include $urls[$_SERVER["REQUEST_URI"]];
+    if(array_key_exists($request_url,$urls)){
+        include $urls[$request_url];
     }else{
-        $fileName = substr($_SERVER["REQUEST_URI"],1);
+        $fileName = substr($request_url,1);
         $file = file_get_contents($fileName);
         header("Content-Type: ".mime_content_type($fileName));
         header("Content-Length: " . strlen($file));

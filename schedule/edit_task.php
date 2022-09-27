@@ -20,7 +20,7 @@
         if(!$tmp or $tmp["user_id"] != $_SESSION["id"] or !$isAuthenticated){
             array_push($errors,"このタスクは存在しません。");
         }else{
-            $task = new Task($tmp["name"],$tmp["time"],$tmp["date"],$tmp["holiday"]);
+            $task = new Task($tmp["name"],$tmp["time"],$tmp["holiday"],$tmp["id"],$tmp["date"]);
             if($_SERVER["REQUEST_METHOD"]=="POST"){
                 if(isset($_POST["delete"])){
                     $db->query("delete from task where id =".$_GET["id"]);

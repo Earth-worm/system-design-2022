@@ -4,6 +4,13 @@
 
 {%block contents%}
 {% if isAuthenticated %}
+<div class="month">
+    <div class="row center-block">
+        <div class="col"><a href="/schedule/tasklist?id={{id}}&month={{months.before}}"><h3>先月</h3></a></div>
+        <div class="col"><h3>{{months.now}}</h3></div>
+        <div class="col"><a href="/schedule/tasklist?id={{id}}&month={{months.next}}"><h3>翌月</h3></a></div>
+    </div>
+</div>
 {{html | raw}}
 {%else%}
 <h3>ログインされていません。</h3>

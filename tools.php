@@ -69,13 +69,15 @@
     class Task{
         public $name;
         public $time;
-        public $day;
+        public $date;
         public $isHoliday;
-        function __construct($_name,$_time,$_date=NULL,$_isHoliday=NULL){
+        public $id;
+        function __construct($_name,$_time,$_isHoliday=NULL,$_id=NULL,$_date=NULL){
             $this->name = $_name;
             $this->time = $_time;
-            $this->date = $_date;
             $this->isHoliday = $_isHoliday;
+            $this->id = $_id;
+            $this->date = $_date;
         }
     }
 
@@ -87,9 +89,9 @@
             $this->isHoliday = $_isHoliday;
         }
         
-        function addAttrs($_name,$_time,$_isHoliday){
+        function addAttrs($_name,$_time,$_isHoliday,$_id=NULL){
             $this->isHoliday = $this->isHoliday or $_isHoliday;
-            $newTask = new Task($_name,$_time);
+            $newTask = new Task($_name,$_time,$_isHoliday,$_id);
             array_push($this->Attrs,$newTask);
         }
 
@@ -116,12 +118,12 @@
             }
         }
 
-        function addTask($_day,$_name,$_isHoliday,$_time=NULL){ //予定の追加
+        function addTask($_day,$_name,$_isHoliday,$_time=NULL,$_id=NULL){ //予定の追加
             if(!array_key_exists($_day,$this->month)){
                 $newDay = new Day();
                 $this->month[$_day] = $newDay;
             }
-            $this->month[$_day]->addAttrs($_name,$_time,$_isHoliday);
+            $this->month[$_day]->addAttrs($_name,$_time,$_isHoliday,$_id);
         }
 
         function genHTML(){ //一か月のタスクからスケジュールのhtml文を生成
@@ -154,8 +156,10 @@
                     $child->appendChild($h1);
                     if($this->month[$i]->hasTasks()){
                         foreach($this->month[$i]->Attrs as $task){
+                            $a = new Hierarchy("a","href=/schedule/edittask?id=".$task->id);
                             $h1 = new Hierarchy("h1",NULL,$task->name);
-                            $child->appendChild($h1);
+                            $a->appendChild($h1);
+                            $child->appendChild($a);
                         }
                     }
                 }else{

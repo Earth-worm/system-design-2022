@@ -11,7 +11,9 @@
     #->中にurls.phpを作成
     #->urls.phpに$appUrlsという名で仮想連想配列を作成(key:url,value:ファイル名)
     #static fileは#static/{$_appName}/{$fileName}に保存
-
+    require_once '../vendor/autoload.php';
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
     $request_url = $_SERVER["REQUEST_URI"];
     if(!$request_url = strstr($request_url,"?",true)){
         $request_url = $_SERVER["REQUEST_URI"];
@@ -34,4 +36,5 @@
         header("Content-Length: " . strlen($file));
         echo $file;
     }
+    echo $_ENV["HELLO"];
 ?>

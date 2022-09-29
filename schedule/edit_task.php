@@ -20,7 +20,7 @@
         if(!$tmp or $tmp["user_id"] != $_SESSION["id"] or !$isAuthenticated){
             array_push($errors,"このタスクは存在しません。");
         }else{
-            $task = new Task($tmp["name"],$tmp["time"],$tmp["holiday"],$tmp["id"],$tmp["date"]);
+            $task = new Task($_POST["name"],$_POST["time"],isset($_POST["holiday"]),$_GET["id"],$_POST["date"]);
             if($_SERVER["REQUEST_METHOD"]=="POST"){
                 if(isset($_POST["delete"])){
                     $db->query("delete from task where id =".$_GET["id"]);
@@ -29,9 +29,9 @@
                     $query = "update task set name='".$task->name."',date='".$task->date."',time=NULL,holiday=True where id = ".$_GET["id"];
                     if($task->time){
                         if($task->isHoliday){
-                            $query = "update task set name='".$task->name."',date='".$task->date."',time=".$task->time.",holiday=True where id = ".$_GET["id"];
+                            $query = "update task set name='".$task->name."',date='".$task->date."',time='".$task->time."',holiday=True where id = ".$_GET["id"];
                         }else{
-                            $query = "update task set name='".$task->name."',date='".$task->date."',time=".$task->time.",holiday=False where id = ".$_GET["id"];
+                            $query = "update task set name='".$task->name."',date='".$task->date."',time='".$task->time."',holiday=False where id = ".$_GET["id"];
                         }
                     }
                     $db->query($query);

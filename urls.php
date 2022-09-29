@@ -36,5 +36,4 @@
         header("Content-Length: " . strlen($file));
         echo $file;
     }
-    echo $_ENV["HELLO"];
 ?>

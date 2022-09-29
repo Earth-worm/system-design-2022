@@ -1,7 +1,8 @@
 <?php
     session_start();
-    require_once '../vendor/autoload.php';
-    $loader = new \Twig\Loader\FilesystemLoader('view');
+    require_once "tools.php";
+    require_once "../vendor/autoload.php";
+    $loader = new \Twig\Loader\FilesystemLoader("view");
     $twig = new \Twig\Environment($loader);
     use Ramsey\Uuid\Uuid;
     
@@ -27,8 +28,12 @@
         if($tmp){
             array_push($errors,"このメールアドレスは既に使われています。");
         }
+        $slack = getIdByEmail($_POST["email"]);
+        if(!$slack->ok){
+            array_push($errors,"このメールアドレスはSlackに追加されていません。");
+        }
         if(empty($errors)){
-            $uuid = Uuid::uuid4();
+            $uuid = $slack->user->id;
             $name = $_POST["name"];
             $email = $_POST["email"];
             $hash_pass = hash("sha256",$_POST["password"]);

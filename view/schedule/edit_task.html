@@ -33,7 +33,7 @@
             <br>
             <div class="row">
                 <div class="col-6">
-                    <button type="submit" class="btn btn-primary">タスクの作成</button>
+                    <button type="submit" class="btn btn-primary">上書き</button>
                 </div>
                 <div class="col-6">
                     <button type="submit" class="btn btn-danger" name="delete">タスクの削除</button>
@@ -44,7 +44,7 @@
         <h3 class="text-danger">{{error}}</h3>
         {%endfor%}
         {%if isSuccess%}
-        <h3>{{isSuccess}}を作成しました。</h3>
+        <h3>{{isSuccess}}を編集しました。</h3>
         {%endif%}
     </div>
 </div>

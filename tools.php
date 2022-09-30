@@ -1,5 +1,4 @@
 <?php
-//時間があれば内閣hpから休日のデータを読み込む（あどみん）
     class Hierarchy{ //タグの階層構造を管理、htmlを生成
         public $tag = "";
         public $isClosed = true;
@@ -81,7 +80,7 @@
         }
     }
 
-    class Day{ //一日のスケジュールのデータ構造
+    class Day{
         public $isHoliday = false;
         public $Attrs = array();
 
@@ -90,7 +89,7 @@
         }
         
         function addAttrs($_name,$_time,$_isHoliday,$_id=NULL){
-            $this->isHoliday = $this->isHoliday or $_isHoliday;
+            $this->isHoliday = ($this->isHoliday or $_isHoliday);
             $newTask = new Task($_name,$_time,$_isHoliday,$_id);
             array_push($this->Attrs,$newTask);
         }
@@ -100,7 +99,7 @@
         }
     }
 
-    class Schedule{ //一か月のスケジュールのデータ構造
+    class Schedule{ //一か月のスケジュール
         public $firstWeek;
         public $lastDay;
         public $month = array();
@@ -143,8 +142,8 @@
                 $child->appendChild($h1);
                 $week->appendChild($child);
             }
+            echo "<br>";
             for($i=1;$i<=$this->lastDay;$i++){
-                $holiday = false;
                 if(array_key_exists($i,$this->month)){
                     $holiday = $this->month[$i]->isHoliday;
                     $class = "class='col'";
@@ -183,6 +182,7 @@
             return $par->HTML();
         }
     }
+
     function curlSlack($url,$method,$data=NULL){
         $headers = [
             'Authorization: Bearer '.$_ENV["SlackToken"],
@@ -230,6 +230,11 @@
         return json_decode(curlSlack($url,"POST",$data));
     }
 
+    function getMessage($channel,$limit=1){
+        $url = "https://slack.com/api/conversations.history";
+        return json_decode(curlSlack($url,"GET",array("channel"=>$channel,"limit"=>$limit)));
+    }
+    
     function getUserList(){
         $url = "https://slack.com/api/users.list";
         return json_decode(curlSlack($url,"GET"));
@@ -239,5 +244,4 @@
         $url = "https://slack.com/api/users.lookupByEmail";
         return json_decode(curlSlack($url,"GET",array("email"=>$email)));
     }
-    
 ?>

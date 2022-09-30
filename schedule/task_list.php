@@ -27,7 +27,7 @@
             $schedule = new Schedule($month);
             $rtn = $db->query("select * from task where user_id = '".$id."' and date like '".$month."%'");
             while($row = $rtn->fetchArray()){
-                $schedule->addTask(intval(substr($row["date"],-2)),$row["name"],$row["holiday"],$row["time"],$row["id"]);
+                $schedule->addTask(intval(substr($row["date"],-2)),$row["name"],$row["holiday"]==1,$row["time"],$row["id"]);
             }
             $html =  $schedule->genHTML();
         }

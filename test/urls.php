@@ -7,5 +7,6 @@
         "slack"=>"slack.php",
         "slackdirect"=>"slackdirect.php",
         "userinfo"=>"userinfo.php",
+        "bot"=>"bot.php"
     );
 ?>

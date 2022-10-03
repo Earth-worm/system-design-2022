@@ -129,53 +129,59 @@
             $before = intval(date("d",strtotime($this->tarMonth."-01 -1 day")));
             $lastWeek = intval(date("w",strtotime($this->tarMonth." last day of this month")));
             $par = new Hierarchy("div","class='container'");
-            $head = new Hierarchy("div","class='row'");
+            $head = new Hierarchy("div","class='row border-bottom text-center'");
             foreach(array("日","月","火","水","木","金","土") as $day){
                 $child = new Hierarchy("div","class='col'",$day);
                 $head->appendChild($child);
             }
             $par->appendChild($head);
-            $week = new Hierarchy("div","class='row'");
+            $week = new Hierarchy("div","class='row week'");
             for($i=0;$i<$this->firstWeek;$i++){
-                $child = new Hierarchy("div","class='col'");
-                $h1 = new Hierarchy("h1",NULL,$before+$i-$this->firstWeek+1);
-                $child->appendChild($h1);
+                $child = new Hierarchy("div","class='col other border'");
+                #$h1 = new Hierarchy("h1",NULL,$before+$i-$this->firstWeek+1);
+                #$child->appendChild($h1);
                 $week->appendChild($child);
             }
-            echo "<br>";
             for($i=1;$i<=$this->lastDay;$i++){
                 if(array_key_exists($i,$this->month)){
                     $holiday = $this->month[$i]->isHoliday;
-                    $class = "class='col'";
-                    if($holiday){
-                        $class = "class='col holiday'";
+                    $class = "day col border";
+                    if($this->month[$i]->hasTasks() and count($this->month[$i]->Attrs)>4){
+                            $class = $class." scroll";
                     }
-                    $child = new Hierarchy("div",$class);
-                    $h1 = new Hierarchy("h1",NULL,$i);
-                    $child->appendChild($h1);
+                    if($holiday){
+                        $class = $class." bg-light";
+                    }
+                    $child = new Hierarchy("div","class='".$class."'");
+                    $h = new Hierarchy("h5",NULL,$i);
+                    $child->appendChild($h);
                     if($this->month[$i]->hasTasks()){
+                        $ul = new Hierarchy("ul","class='tasks'");
                         foreach($this->month[$i]->Attrs as $task){
                             $a = new Hierarchy("a","href=/schedule/edittask?id=".$task->id);
-                            $h1 = new Hierarchy("h1",NULL,$task->name);
-                            $a->appendChild($h1);
-                            $child->appendChild($a);
+                            $li = new Hierarchy("li",NULL,NULL);
+                            $h = new Hierarchy("h5",NULL,$task->name);
+                            $a->appendChild($h);
+                            $li->appendChild($a);
+                            $ul->appendChild($li);
                         }
+                        $child->appendChild($ul);
                     }
                 }else{
-                    $child = new Hierarchy("div","class='col'");
-                    $h1 = new Hierarchy("h1",NULL,$i);
-                    $child->appendChild($h1);
+                    $child = new Hierarchy("div","class='day col border'");
+                    $h = new Hierarchy("h5",NULL,$i);
+                    $child->appendChild($h);
                 }
                 $week->appendChild($child);
                 if(($i+$this->firstWeek-1)%7==6){
                     $par->appendChild($week);
-                    $week = new Hierarchy("div","class='row'");
+                    $week = new Hierarchy("div","class='week row'");
                 }
             }
             for($i=0;$i<6-$lastWeek;$i++){
-                $child = new Hierarchy("div","class='col'");
-                $h1 = new Hierarchy("h1",NULL,$i+1);
-                $child->appendCHild($h1);
+                $child = new Hierarchy("div","class='day col other'");
+                #$h1 = new Hierarchy("h1",NULL,$i+1);
+                #$child->appendCHild($h1);
                 $week->appendChild($child);
             }
             $par->appendChild($week);

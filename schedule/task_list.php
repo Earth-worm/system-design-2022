@@ -1,29 +1,39 @@
 <?php
     session_start();
     include("tools.php");
-    require_once '../vendor/autoload.php';
+    require_once "../vendor/autoload.php";
     $loader = new \Twig\Loader\FilesystemLoader('view');
     $twig = new \Twig\Environment($loader);
+    $db = new Sqlite3("db.sqlite3");
 
     $isAuthenticated = isset($_SESSION["id"]);
     $html = NULL;
     $errors = array();
     $month = date("Y-m");
-    if($isAuthenticated){
-        $db = new Sqlite3("db.sqlite3");
-        $isAuthenticated = $_SESSION["id"];
-        $id = $isAuthenticated;
-        if(isset($_GET["id"])){
-            $id = $_GET["id"];
-            $rtn = $db->query("select * from user where id ='".$id."'");
-            if(!$rtn->fetchArray()){
-                array_push($errors,"このユーザは存在しません。");
+    $id = NULL;
+    if($isAuthenticated or isset($_GET["token"])){
+        if(isset($_GET["token"])){
+            $rtn = $db->query("select * from token where url='".$_GET["token"]."'");
+            if($rtn->fetchArray()){
+                $isAuthenticated = $_GET["id"];
+            }else{
+                array_push($errors,"このトークンは有効ではありません。");
+            }
+        }else{
+            $isAuthenticated = $_SESSION["id"];
+            if(isset($_GET["id"])){
+                $id = $_GET["id"];
+                $rtn = $db->query("select * from user where id ='".$id."'");
+                if(!$rtn->fetchArray()){
+                    array_push($errors,"このユーザは存在しません。");
+                }
             }
         }
         if(isset($_GET["month"])){
             $month = $_GET["month"];
         }
         if(empty($errors)){
+            $id = $isAuthenticated;
             $schedule = new Schedule($month);
             $rtn = $db->query("select * from task where user_id = '".$id."' and date like '".$month."%'");
             while($row = $rtn->fetchArray()){
@@ -43,4 +53,5 @@
         "id"=>$id,
     );
     echo $twig->render('schedule/task_list.html',$context);
+    $db->close();
 ?>

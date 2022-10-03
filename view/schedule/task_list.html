@@ -2,13 +2,49 @@
 
 {%block title%}スケジュール{%endblock%}
 
+{%block javascript%}
+    window.onload = (event) => {
+        const input = document.getElementById("month-input");
+        const form = document.getElementById("form");
+        input.addEventListener("change",function(){
+            form.submit();
+        });
+    };
+{%endblock%}
+{%block css%}
+.month-form{
+    border: none;
+}
+.week{
+    width:100%;
+}
+.page-link{
+    border: none;
+}
+.day{
+    height: 100px;
+}
+.col{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.scroll{
+    overflow-y:scroll;
+}
+{%endblock%}
+
 {%block contents%}
 {% if isAuthenticated %}
 <div class="month">
-    <div class="row center-block">
-        <div class="col"><a href="/schedule/tasklist?id={{id}}&month={{months.before}}"><h3>前</h3></a></div>
-        <div class="col"><h3>{{months.now}}</h3></div>
-        <div class="col"><a href="/schedule/tasklist?id={{id}}&month={{months.next}}"><h3>次</h3></a></div>
+    <div class="row text-center">
+        <div class="col-2 page-link"><a href="/schedule/tasklist?id={{id}}&month={{months.before}}"><h2>&laquo;</h2></a></div>
+        <div class="col-8">
+            <form action="" method="GET" id="form">
+                <input type="month" class="fs-2 form-control text-center month-form" id="month-input" name="month" value="{{months.now}}">
+            </form>
+        </div>
+        <div class="col-2 page-link"><a href="/schedule/tasklist?id={{id}}&month={{months.next}}"><h2>&raquo;</h2></a></div>
     </div>
 </div>
 {{html | raw}}

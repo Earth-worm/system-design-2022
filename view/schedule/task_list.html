@@ -7,7 +7,8 @@
         const input = document.getElementById("month-input");
         const form = document.getElementById("form");
         input.addEventListener("change",function(){
-            form.submit();
+            var url = "{{getUrl | raw}}&month="+input.value;
+            document.location = url;
         });
     };
 {%endblock%}
@@ -38,13 +39,13 @@
 {% if isAuthenticated %}
 <div class="month">
     <div class="row text-center">
-        <div class="col-2 page-link"><a href="/schedule/tasklist?id={{id}}&month={{months.before}}"><h2>&laquo;</h2></a></div>
+        <div class="col-2 page-link"><a href="{{months.before}}"><h2>&laquo;</h2></a></div>
         <div class="col-8">
-            <form action="" method="GET" id="form">
+            <form action="{{url}}" method="GET" id="form">
                 <input type="month" class="fs-2 form-control text-center month-form" id="month-input" name="month" value="{{months.now}}">
             </form>
         </div>
-        <div class="col-2 page-link"><a href="/schedule/tasklist?id={{id}}&month={{months.next}}"><h2>&raquo;</h2></a></div>
+        <div class="col-2 page-link"><a href="{{months.next}}"><h2>&raquo;</h2></a></div>
     </div>
 </div>
 {{html | raw}}

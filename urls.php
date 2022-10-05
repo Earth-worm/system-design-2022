@@ -1,9 +1,9 @@
 <?php
     function include_app($_dir){
         global $urls;
-        include $_dir."/urls.php";
+        include "apps/".$_dir."/urls.php";
         foreach($appUrls as $url => $fileName){
-            $urls["/".$_dir."/".$url] = $_dir."/".$fileName;
+            $urls["/".$_dir."/".$url] = "apps/".$_dir."/".$fileName;
         }
     }
     #アプリごとにurlを記載する関数
@@ -27,6 +27,7 @@
     include_app("test");
     include_app("auth");
     include_app("schedule");
+    include_app("slash");
     if(array_key_exists($request_url,$urls)){
         include $urls[$request_url];
     }else{

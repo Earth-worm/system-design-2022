@@ -1,4 +1,5 @@
 <?php
+    use Ramsey\Uuid\Uuid;
     class Hierarchy{ //タグの階層構造を管理、htmlを生成
         public $tag = "";
         public $isClosed = true;
@@ -146,7 +147,7 @@
                 if(array_key_exists($i,$this->month)){
                     $holiday = $this->month[$i]->isHoliday;
                     $class = "day col border";
-                    if($this->month[$i]->hasTasks() and count($this->month[$i]->Attrs)>4){
+                    if($this->month[$i]->hasTasks() and count($this->month[$i]->Attrs)>2){
                             $class = $class." scroll";
                     }
                     if($holiday){
@@ -249,5 +250,10 @@
     function getIdByEmail($email){
         $url = "https://slack.com/api/users.lookupByEmail";
         return json_decode(curlSlack($url,"GET",array("email"=>$email)));
+    }
+    function createToken($_db){
+        $token = Uuid::uuid4();
+        $rtn = $_db->query("insert into token(url) values('".$token."')");
+        return $token;
     }
 ?>

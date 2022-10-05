@@ -8,7 +8,7 @@
     );
     $res = curl_exec($ch);
     $info = curl_getinfo($ch);
-    curl_close($ch);
-    echo htmlspecialchars($res);
-    var_dump($info)
+    $url="aaa/aaa/vfvdsa/bdsng&token=AAAAAA";
+    $url = http_build_query($url,["id"=>"idddd"]);
+    echo $url;
 ?>

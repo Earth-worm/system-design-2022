@@ -26,6 +26,7 @@
             }
         }else{
             $isAuthenticated = $_SESSION["id"];
+            $getData["id"]=$isAuthenticated;
             if(isset($_GET["id"])){
                 $id = $_GET["id"];
                 $getData["id"] = $_GET["id"];

@@ -254,6 +254,8 @@
     function createToken($_db){
         $token = Uuid::uuid4();
         $rtn = $_db->query("insert into token(url) values('".$token."')");
+        $delTime = time()+(15*60);
+        file_put_contents("cron/tokenlist.txt",$delTime." ".$token."\n", FILE_APPEND);
         return $token;
     }
 ?>

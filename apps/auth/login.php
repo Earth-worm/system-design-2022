@@ -26,7 +26,7 @@
         if(empty($errors)){
             $hash_pass = hash("sha256",$_POST["password"]);
             if(strcmp($hash_pass,$tmp["pass"])!=0){
-                array_push("パスワードが間違っています。");
+                array_push($errors,"パスワードが間違っています。");
             }else{
                 $_SESSION["id"] = $tmp["id"];
                 $_SESSION["name"]=$tmp["name"];

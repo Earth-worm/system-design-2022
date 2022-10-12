@@ -33,7 +33,7 @@ slackのスラッシュコマンドからスケジュールの表示
    - twig
    - ramsey/uuid
    - phpdotenv
--　プログラムのインストール
+- プログラムのインストール
 - sqliteのインストール
 - プログラムのインストール
 - slack apiの設定

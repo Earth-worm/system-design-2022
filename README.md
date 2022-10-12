@@ -8,10 +8,10 @@ slackを用いて、チームとスケジュールを共有するアプリ。
 ![createtask](https://user-images.githubusercontent.com/54432132/195247054-c7b94fde-352f-4e29-9494-09ce885e6904.jpg)
 
 slackのスラッシュコマンドからスケジュールの作成
->/task {タスク名}
->{日にち}
->{休日か T ot F}
->{時間}
+>/task {タスク名}<br>
+>{日にち}<br>
+>{休日か T or F}<br>
+>{時間}<br>
 
 slackのスラッシュコマンドからスケジュールの表示
 >/schedule @user

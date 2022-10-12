@@ -18,4 +18,10 @@
    - phpdotenv
 - sqliteのインストール
 - プログラムのインストール
-- 
+- slack apiの設定
+- ngrokのインストール
+- タイムスケジューラの設定
+
+## xamppのインストール
+[xamppホームページ](https://www.apachefriends.org/jp/download.html)からインストール
+![xampphp](https://user-images.githubusercontent.com/54432132/195221899-3313dc6a-5691-4b68-b66b-03b250c92ccb.jpg)

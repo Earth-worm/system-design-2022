@@ -34,6 +34,14 @@
 
 ![compsoer](https://user-images.githubusercontent.com/54432132/195222841-609fb5e3-1f80-488e-b2f5-2fa4ce4946d7.jpg)
 
+## twig,uuid,phpdotenvのインストール
+xampp controllerからshellを開き以下のコマンドを実行
+>composer require vlucas/phpdotenv<br>
+>composer require ramsey/uuid<br>
+>composer require "twig/twig:~1.0"<br>
+![shell](https://user-images.githubusercontent.com/54432132/195228944-68831b5b-f291-478f-a5ba-dedbc44fdb96.jpg)
+
+
 ## プログラムのインストール
 [github](https://github.com/Earth-worm/system-design-2022)からzipとしてダウントールし、xampp/htdocsフォルダに展開してください。
 

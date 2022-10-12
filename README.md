@@ -46,10 +46,10 @@ xampp/htdocsフォルダ内でsqlite3 db.sqlite3と実行し、dbにアクセス
 ![sqlite](https://user-images.githubusercontent.com/54432132/195224288-1f57f66c-e7d5-45c9-bd92-e02a648377f4.jpg)
 
 成功例
-> C:\xampp\htdocs>sqlite3 db.sqlite3
-> SQLite version 3.39.3 2022-09-05 11:02:23
-> Enter ".help" for usage hints.
-> sqlite> .tables
-> task   token  user
-> sqlite>
+> C:\xampp\htdocs>sqlite3 db.sqlite3<br>
+> SQLite version 3.39.3 2022-09-05 11:02:23<br>
+> Enter ".help" for usage hints.<br>
+> sqlite> .tables<br>
+> task   token  user<br>
+> sqlite><br>
 

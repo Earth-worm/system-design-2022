@@ -1,4 +1,20 @@
-# システム設計2022
+# プログラム概要
+slackを用いて、チームとスケジュールを共有するアプリ。
+
+スケジュールの表示
+![suke](https://user-images.githubusercontent.com/54432132/195247053-7ddc8fc9-d0ca-426f-8448-76686e638961.jpg)
+
+スケジュールの作成
+![createtask](https://user-images.githubusercontent.com/54432132/195247054-c7b94fde-352f-4e29-9494-09ce885e6904.jpg)
+
+slackのスラッシュコマンドからスケジュールの作成
+>/task {タスク名}
+>{日にち}
+>{休日か T ot F}
+>{時間}
+
+slackのスラッシュコマンドからスケジュールの表示
+>/schedule @user
 
 
 # 必要なもの

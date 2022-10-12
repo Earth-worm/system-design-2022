@@ -1,2 +1,2 @@
 Set ws = CreateObject("Wscript.Shell") 
-ws.run "cmd /c ""C:\xampp\htdocs\cron\deleteTokenCommand.bat""", 0
+ws.run "cmd /c ""{deleteTokenCommand.batのパス}""", 0

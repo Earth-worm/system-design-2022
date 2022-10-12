@@ -17,6 +17,15 @@ slackのスラッシュコマンドからスケジュールの表示
 >/schedule @user
 
 
+機能とパス
+* /auth/signin サインイン
+* /auth/login ログイン
+* /auth/logout ログアウト
+* /schedule/createtask タスクの作成
+* /schedule/edittask タスクの編集
+* /schedule/tasklist  スケジュールの表示
+
+
 # 必要なもの
 * windows10
 * xampp 3.3.0

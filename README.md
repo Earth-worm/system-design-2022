@@ -8,7 +8,7 @@ slackを用いて、チームとスケジュールを共有するアプリ。
 ![createtask](https://user-images.githubusercontent.com/54432132/195247054-c7b94fde-352f-4e29-9494-09ce885e6904.jpg)
 
 slackのスラッシュコマンドからスケジュールの作成
->/task {タスク名}<br>
+>/task {名前}<br>
 >{日にち}<br>
 >{休日か T or F}<br>
 >{時間}<br>
@@ -36,97 +36,143 @@ slackのスラッシュコマンドからスケジュールの表示
 * ramesy/uuid
 * phpdotenv
 
-# 環境設定の流れ
-- xamppのインストール
-- composerのインストール
+# 設定の流れ
+1. xamppのインストール
+2. composerのインストール
    - twig
    - ramsey/uuid
    - phpdotenv
-- プログラムのインストール
-- sqliteのインストール
-- プログラムのインストール
-- slack apiの設定
-- ngrokのインストール
-- タイムスケジューラの設定
+3. プログラムのインストール
+4. sqliteのインストール
+5. プログラムのインストール
+6. slack apiの設定
+7. ngrokのインストール
+8. タイムスケジューラの設定
 
-## xamppのインストール
-[xamppダウンロードページ](https://www.apachefriends.org/jp/download.html)
+## 1. XAMPPのインストール
+開発環境の構築にXAMPPを用います。  
+アプリケーションの開発には様々なソフトウェアが必要です。XAMPPとはそれらソフトウェアをまとめて扱うことができるツールです。  
+[XAMPPダウンロードページ](https://www.apachefriends.org/jp/download.html)からXAMPPのインストーラをダウンロードし、実行してください。
 
 ![xampphp](https://user-images.githubusercontent.com/54432132/195221899-3313dc6a-5691-4b68-b66b-03b250c92ccb.jpg)
+*XAMPPダウンロード*
+<br>
 
-## composerのインストール
-[composerダウンロードページ](https://getcomposer.org/download/)
+成功するとxampp control panelが使えるようになります。  
+
+![xamppcontrol](https://user-images.githubusercontent.com/54432132/195582301-e6741f6e-4328-4d68-bc8e-812682c8c4cc.jpg)
+*XAMPP control panel*
+
+
+## 2. composerのインストール
+composerとはプログラムに使う拡張機能(パッケージ)を管理するツールで、パッケージをインストールするのに使います。  
+[composerダウンロードページ](https://getcomposer.org/download/)からインストーラをダウンロードし、実行してください。
 
 ![compsoer](https://user-images.githubusercontent.com/54432132/195222841-609fb5e3-1f80-488e-b2f5-2fa4ce4946d7.jpg)
+*composer install*
 
 ## twig,uuid,phpdotenvのインストール
-xampp controllerからshellを開き以下のコマンドを実行
+システムに必要な3つのパッケージをcomposerでインストールします。  
+xampp control panelからshellを開き、以下のコマンドを実行。
+
 >composer require vlucas/phpdotenv<br>
 >composer require ramsey/uuid<br>
 >composer require "twig/twig:~1.0"<br>
 
 ![shell](https://user-images.githubusercontent.com/54432132/195228944-68831b5b-f291-478f-a5ba-dedbc44fdb96.jpg)
+*shell*
 
+次のコマンドをshellに入力すると、インストールされているパッケージの一覧を見ることができます。先ほどインストールしたパッケージを確認してみましょう。
 
-## プログラムのインストール
-[github](https://github.com/Earth-worm/system-design-2022)からzipとしてダウントールし、xampp/htdocsフォルダに展開してください。
+>composer show -i
+
+![compsoerlist](https://user-images.githubusercontent.com/54432132/195586014-cf316a07-464b-42f3-9ec7-afcd3c4d107b.jpg)
+*パッケージ一覧*
+
+## 3. プログラムのインストール
+phpを実行する設定は終わりました。次にこのシステムをインストールします。  
+[github](https://github.com/Earth-worm/system-design-2022)からzipとしてダウンロードし、xampp/htdocsフォルダに展開してください。
 
 ![git](https://user-images.githubusercontent.com/54432132/195223688-3130d9f2-5b55-430f-8ffa-d0c05029ab62.jpg)
 
+xampp/htdocsフォルダの中身は次のようになります。2,3個関係ないファイルがありますが、気にしないでください。
+
+![htdocs](https://user-images.githubusercontent.com/54432132/195588366-56117042-fa59-4408-b273-d5d11f737218.jpg)
+*htdocs中身*
+
 ##  sqlite3のインストール
-[sqlite3ダウンロードページ](https://www.sqlite.org/download.html)からツールをダウンロードし、sqlite3.exeをxampp/htdocsに設置、もしくはpathを通す。
-xampp/htdocsフォルダ内でsqlite3 db.sqlite3と実行し、dbにアクセスできれば成功です。
+webアプリで扱う情報は基本的にデータベース(DB)に保管されます。このシステムではDBにsqliteを用います。  
+[sqlite3ダウンロードページ](https://www.sqlite.org/download.html)からツールをダウンロードし、ダウンロードしたフォルダ内からsqlite3.exeをxampp/htdocsに設置してください。
 
 ![sqlite](https://user-images.githubusercontent.com/54432132/195224288-1f57f66c-e7d5-45c9-bd92-e02a648377f4.jpg)
 
-成功例
-> C:\xampp\htdocs>sqlite3 db.sqlite3<br>
-> SQLite version 3.39.3 2022-09-05 11:02:23<br>
-> Enter ".help" for usage hints.<br>
-> sqlite> .tables<br>
-> task   token  user<br>
-> sqlite><br>
+コマンドプロンプト(cmd)からhtdocsディレクトリへ移動して次のコマンドを入力し、データベースのテーブルを取得できれば成功です。
+
+>cd {htdocsの絶対パス}&emsp;//ディレクトの移動  
+>sqlite3 db.sqlite3&emsp;//DBにアクセス  
+>.tables&emsp;//テーブルの取得  
+
+![sqlitea](https://user-images.githubusercontent.com/54432132/195589998-7734181d-a630-4586-8824-17f5340ef0c2.jpg)
+*テーブルリストの取得*
 
 ## slack apiの設定
-まずはslackのワークスペースを作成し、[slackAPIページ](https://api.slack.com/apps/new)からアプリ作成します。
-[アプリの作成方法](https://reffect.co.jp/html/slack)
+
+まずはslackのワークスペースを作成し、[slackAPIページ](https://api.slack.com/)からアプリ作成します。  
+アプリの作成方法は説明が長くなるので[他のサイト](https://reffect.co.jp/html/slack)を参考にしてください。permissionから説明します。  
 次にpermissionを与えます。画像のpermissionをクリック。
 
 ![SharedScreenshot](https://user-images.githubusercontent.com/54432132/195231251-33073db7-fe8d-46da-b431-712ba618079b.jpg)
+*permission*
 
 permissionページの下の方にScopeを追加する欄があるので、bot token scopesに次のscopeを追加します。
+
 ![SharedScreenshot2](https://user-images.githubusercontent.com/54432132/195232286-deb93759-4fe4-4159-a853-c2ed8731ee3b.jpg)
 ![SharedScreenshot3](https://user-images.githubusercontent.com/54432132/195232348-389de70b-1eb1-462a-96ae-4723427998ba.jpg)
+*scopes*
 
-変更を保存すると、bot tokenが生成されるのでそれを控えます。
+この処理が終わるとslackのワークスペースにアプリ名と同じ名前のbotが追加されます。
+
+![bot](https://user-images.githubusercontent.com/54432132/195630925-1fdfb096-15e0-4a54-ba3d-dbf2354b9bce.jpg)
+*botの追加*
+
+変更を保存すると、Bot User Outh Tokenが生成されるのでそれを控えます。 
+tokenの場所は[他のサイト](https://reffect.co.jp/html/slack)を参照ください。
+:::note warm
+User Outh Tokenと間違えると後のslashコマンドでエラーが発生します。 
+:::
+
 ![token](https://user-images.githubusercontent.com/54432132/195232793-45100e7c-8645-4362-8c6d-09ebc08d0cb1.jpg)
 
 最後に得られたtokenをプログラム内に組み込みます。
 このトークンはslack apiを用いるのに必要です。
 
 htdocsフォルダに.envという名前でファイルを作成し、先ほど控えたtokenを記述します。.envの中身は以下のようにしてください。
->SlackToken="xoxb-xxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxx"
+>SlackToken="xoxb-xxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxx"  
 >Url=""
 
 ## ngrokのインストール
 ngrokとは開発サーバーを公開するためのツールです。slackのslash commandに使います。
 [ngrokダウンロードページ]()からngrokをダウンロードし解凍します。解凍したフォルダ内のngrok.exeを実行し、ngrokし、以下のコマンドを実行します。
 
->ngrok http {ローカルサーバのurl}
+>ngrok http {ローカルサーバのurl}  
 >例 ngrok http localhost:8080
 
 ![ngrok](https://user-images.githubusercontent.com/54432132/195240188-8f85b1b0-07e0-46b3-92e1-6d65c94c31a4.jpg)
+*ngrok install*
+
+成功すると下の画像のようにurlが発行され、開発サーバーが公開されます。  
+:::note warm
+urlに初回でアクセスすると、トークンをの入力を求められるので指示に従ってください。
+::: 
 
 ![ngrokurl](https://user-images.githubusercontent.com/54432132/195240942-a48a6aad-f925-4ef1-a433-871433fb0f32.jpg)
 
 
-成功すると上の画像のようにurlが発行され、開発環境が公開されます。urlに初回でアクセスすると、トークンをの入力を求められるので指示に従ってください。
-
-最後にこのurlをプログラムとslackに組み込みます。まず、先ほど設定したhtdocs/.envファイルを開き得られたurlを記載します。
+最後にこのurlをプログラムとslackに組み込みます。まず、先ほど設定したhtdocs/.envファイルを開き、得られたurlを記載します。
 >SlackToken="xoxb-xxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxx"
 >Url="https://xxxxxxxxxxxxxxxxxxxx.jp.ngrok.io"
 
-次にslackAPIのslashコマンドを設定します。[slackAPIページ]()からyour appの先ほど作成したアプリを開き、左端のfeature欄からslash commandをクリックしてください。
+次にslackAPIのslashコマンドを設定します。[slackAPIページ](https://api.slack.com/lang/ja-jp)からyour appの先ほど作成したアプリを開き、左端のfeature欄からslash commandをクリックしてください。
 ![slackwebap](https://user-images.githubusercontent.com/54432132/195242030-8bd74997-a3b1-4284-a011-c2829e224333.jpg)
 
 create new commandから次の二つのコマンドを作成します。{URL}にはngrokのurlを記載してください。

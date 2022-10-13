@@ -208,13 +208,9 @@ htdocs/cronフォルダ内に以下のファイルにファイルのパスを記
 完了を押した後、タスクを右クリック->プロパティ->トリガー->実行間隔を1分に設定。
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/54432132/195244969-4329baa8-8166-4b5a-bdcc-a4983cd5382d.jpg" width="60%"><br>*タスク名設定*
-
-<img src="https://user-images.githubusercontent.com/54432132/195244977-d30e8b75-cb76-4248-bb43-6dffa185cffd.jpg" width="60%"><br>*トリガー設定*
-
-<img src="https://user-images.githubusercontent.com/54432132/195245010-dff8716c-4a3a-4c20-b70b-6c74b4e24b89.jpg" width="60%"><br>*開始プログラム設定*
-
-<img src="https://user-images.githubusercontent.com/54432132/195245022-ccaba1cf-29e5-4ca1-ae7c-5b33ca19ff1f.jpg" width="60%"><br>*プログラム詳細設定*
-
-<img src="https://user-images.githubusercontent.com/54432132/195639232-447d0e54-1974-47f8-9dbe-f9b12bfe92e8.jpg" width="60%"><br>*プロパティ*
+<img src="https://user-images.githubusercontent.com/54432132/195244969-4329baa8-8166-4b5a-bdcc-a4983cd5382d.jpg" width="60%"><br>*タスク名設定*<br>
+<img src="https://user-images.githubusercontent.com/54432132/195244977-d30e8b75-cb76-4248-bb43-6dffa185cffd.jpg" width="60%"><br>*トリガー設定*<br>
+<img src="https://user-images.githubusercontent.com/54432132/195245010-dff8716c-4a3a-4c20-b70b-6c74b4e24b89.jpg" width="60%"><br>*開始プログラム設定*<br>
+<img src="https://user-images.githubusercontent.com/54432132/195245022-ccaba1cf-29e5-4ca1-ae7c-5b33ca19ff1f.jpg" width="60%"><br>*プログラム詳細設定*<br>
+<img src="https://user-images.githubusercontent.com/54432132/195639232-447d0e54-1974-47f8-9dbe-f9b12bfe92e8.jpg" width="60%"><br>*プロパティ*<br>
 </div>

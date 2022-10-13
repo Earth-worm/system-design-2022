@@ -137,7 +137,8 @@ permissionページの下の方にScopeを追加する欄があるので、bot t
 
 変更を保存すると、Bot User Outh Tokenが生成されるのでそれを控えます。 
 tokenの場所は[他のサイト](https://reffect.co.jp/html/slack)を参照ください。
-<p class="warn">**注意** User Outh Tokenと間違えると後のslashコマンドでエラーが発生します。</p>
+>**Warning**  
+>User Outh Tokenと間違えると後のslashコマンドでエラーが発生します。
  
 
 
@@ -161,8 +162,8 @@ ngrokとは開発サーバーを公開するためのツールです。slackのs
 *ngrok install*
 
 成功すると下の画像のようにurlが発行され、開発サーバーが公開されます。  
-
-<p class="info">**ポイント** urlに初回でアクセスすると、トークンをの入力を求められるので指示に従ってください。</p>
+>**Note**  
+>urlに初回でアクセスすると、トークンをの入力を求められるので指示に従ってください。
 
 ![ngrokurl](https://user-images.githubusercontent.com/54432132/195240942-a48a6aad-f925-4ef1-a433-871433fb0f32.jpg)
 

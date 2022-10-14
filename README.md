@@ -9,13 +9,18 @@
 <img src="https://user-images.githubusercontent.com/54432132/195247054-c7b94fde-352f-4e29-9494-09ce885e6904.jpg" width=""><figcaption>スケジュール作成</figcaption>
 <hr>
 
-slackのスラッシュコマンドからスケジュールの作成
+* slackのスラッシュコマンドからスケジュールの作成
 >/task {名前}<br>
 >{日にち}<br>
 >{休日か T or F}<br>
->{時間}<br>
+>{時間}<br><br>
+>例
+>/task 誕生日<br>
+>2022-04-13<br>
+>T<br>
+>12:00<br>
 
-slackのスラッシュコマンドからスケジュールの表示
+* slackのスラッシュコマンドからスケジュールの表示
 >/schedule @user
 <br>
 

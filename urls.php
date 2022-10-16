@@ -22,7 +22,6 @@
         #"url"=>"filename"
         "/"=>"home.php",
     );
-    include_app("test");
     include_app("auth");
     include_app("schedule");
     include_app("slash");

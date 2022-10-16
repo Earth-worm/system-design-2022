@@ -28,7 +28,7 @@
 │   ├── auth authアプリのhtmlファイル  
 │   ├── schedule scheduleのhtmlファイル  
 │   ├── _base.html htmlのテンプレート  
-│   ├── 404.html 404ページのテンプレート  
+│   ├── 404.html 404ページのhtmlファイル  
 │   └── home.html インデックスページのhtmlファイル  
 │
 ├── xampp  

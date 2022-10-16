@@ -39,11 +39,11 @@
 ├── .env 環境変数の保存先  
 └── .htaccess 内部リダイレクト設定ファイル  
 </pre>
-* スケジュールの作成
+* スケジュールの表示
 <img src="https://user-images.githubusercontent.com/54432132/195247053-7ddc8fc9-d0ca-426f-8448-76686e638961.jpg" width=""><figcaption>スケジュール表示</figcaption>
 <hr>
 
-* スケジュールの表示
+* スケジュールの作成
 <img src="https://user-images.githubusercontent.com/54432132/195247054-c7b94fde-352f-4e29-9494-09ce885e6904.jpg" width=""><figcaption>スケジュール作成</figcaption>
 <hr>
 

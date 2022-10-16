@@ -20,9 +20,7 @@
     }
     $urls = array(
         #"url"=>"filename"
-        "/"=>"index.php",
-        "/testhtml"=>"test.html",
-        "/home"=>"home.php",
+        "/"=>"home.php",
     );
     include_app("test");
     include_app("auth");

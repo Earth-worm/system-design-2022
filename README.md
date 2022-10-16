@@ -19,12 +19,13 @@
 >2022-04-13<br>
 >T<br>
 >12:00<br>
+<hr>
 
 * slackのスラッシュコマンドからスケジュールの表示
 >/schedule @user
 <br>
 
-# 機能とパス
+# 機能とURL
 * /auth/signin サインイン
 * /auth/login ログイン
 * /auth/logout ログアウト

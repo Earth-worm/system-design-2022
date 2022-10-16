@@ -28,12 +28,14 @@
 │   ├── auth authアプリのhtmlファイル  
 │   ├── schedule scheduleのhtmlファイル  
 │   ├── _base.html htmlのテンプレート  
+│   ├── 404.html 404ページのテンプレート  
 │   └── home.html インデックスページのhtmlファイル  
 │
 ├── xampp  
 ├── db.sqlite3 データベース  
 ├── home.php インデックスページ  
 ├── urls.php ルーティングプログラム  
+├── 404.php 404のリダイレクト先  
 ├── utils.php 関数やクラスをまとめたファイル  
 ├── README.mb  
 ├── .env 環境変数の保存先  

@@ -9,7 +9,7 @@
 │   │   ├── signin.php アカウント作成    
 │   │   ├── login.php  ログイン  
 │   │   ├── logout.php ログアウト  
-│   │   └── urls.php urlとファイルをマッピング  
+│   │   └── urls.php urlとphpファイルをマッピング  
 │   │
 │   ├── schedule スケジュール周りの機能フォルダ  
 │   │   ├── createTask.php スケジュールの作成  

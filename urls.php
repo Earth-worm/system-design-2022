@@ -29,9 +29,15 @@
         include $urls[$request_url];
     }else{
         $fileName = substr($request_url,1);
-        $file = file_get_contents($fileName);
-        header("Content-Type: ".mime_content_type($fileName));
-        header("Content-Length: " . strlen($file));
-        echo $file;
+        if($file = @file_get_contents($fileName)){
+            header("Content-Type: ".mime_content_type($fileName));
+            header("Content-Length: " . strlen($file));
+            echo $file;
+        }else{
+            header("HTTP/1.1 404 Not Found");
+            include ("404.php");
+            exit;
+        }
     }
+
 ?>

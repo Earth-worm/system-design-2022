@@ -10,7 +10,7 @@
         $text = str_replace(array("\r\n","\r"),"\n",$text);
         $arr = explode("\n",$text);
         $count = count($arr);
-        var_dump($arr);
+        #var_dump($arr);
         if($count < 2){
             array_push($errors,"日付が設定されていません。");
         }else{
@@ -18,7 +18,7 @@
             $date = $arr[1];
             $dateArr = explode("-",$date);
             if(count($dateArr)!=3 or intval($dateArr[1])>12 or intval($dateArr[2])>31){
-                var_dump($dateArr);
+                #var_dump($dateArr);
                 array_push($errors,"日付入力に誤りがあります。");
             }
 
@@ -60,7 +60,7 @@
             $values = $values.",NULL";
         }
         $values = $values.",'".$_POST["user_id"]."'";
-        echo $values;
+        #echo $values;
         $db->query("insert into task(name,date,holiday,time,user_id) values(".$values.")");
     }else{
         $rtn="";

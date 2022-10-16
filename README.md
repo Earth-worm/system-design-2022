@@ -1,6 +1,43 @@
 # システム概要
 このシステムはslackを用いて、チームとスケジュールを共有します。
 
+# ディレクトリ構成図
+/htdocs  
+├── apps 機能ごとをまとめたフォルダ  
+│   ├── auth 認証周りの機能フォルダ  
+│   │   ├── signin.php アカウント作成    
+│   │   ├── login.php  ログイン  
+│   │   ├── logout.php ログアウト  
+│   │   └── urls.php urlとファイルをマッピング  
+│   │
+│   ├── schedule スケジュール周りの機能フォルダ  
+│   │   ├── createTask.php スケジュールの作成  
+│   │   ├── editTask.php スケジュールの編集  
+│   │   ├── taskList.php  スケジュールの表示  
+│   │   └── urls.php  
+│   │
+│   └── slash slackのslashコマンド周りの機能  
+│       ├── schedule.php スケジュールのリンクを得る  
+│       ├── task.php タスクの作成  
+│       └── urls.php  
+│
+├── cron 時間指定で実行されるプログラム  
+├── statics 静的ファイル  
+├── view htmlファイル(twig)  
+│   ├── auth authアプリのhtmlファイル  
+│   ├── schedule scheduleのhtmlファイル  
+│   ├── _base.html htmlのテンプレート  
+│   └── home.html インデックスページのhtmlファイル  
+│
+├── xampp  
+├── db.sqlite3 データベース  
+├── home.php インデックスページ  
+├── urls.php ルーティングプログラム  
+├── utils.php 関数やクラスをまとめたファイル  
+├── README.mb  
+├── .env 環境変数の保存先  
+└── .htaccess 内部リダイレクト設定ファイル  
+
 * スケジュールの作成
 <img src="https://user-images.githubusercontent.com/54432132/195247053-7ddc8fc9-d0ca-426f-8448-76686e638961.jpg" width=""><figcaption>スケジュール表示</figcaption>
 <hr>

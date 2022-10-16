@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once "tools.php";
+    require_once "utils.php";
     require_once "../vendor/autoload.php";
     $loader = new \Twig\Loader\FilesystemLoader("view");
     $twig = new \Twig\Environment($loader);

@@ -1,5 +1,5 @@
 <?php
-    include "tools.php";
+    include "utils.php";
     $userId = $_POST["user_id"];
     $db = new Sqlite3("db.sqlite3");
     if(strcmp($_POST["text"],"")!=0){

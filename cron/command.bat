@@ -1,1 +1,1 @@
-C:\xampp\php\php {notice_schedule.phpのパス}
+C:\xampp\php\php {noticeSchedule.phpのパス}

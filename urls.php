@@ -21,6 +21,7 @@
     $urls = array(
         #"url"=>"filename"
         "/"=>"home.php",
+        "/a"=>"a.php",
     );
     include_app("auth");
     include_app("schedule");

@@ -196,7 +196,12 @@ htdocsフォルダに.envという名前でファイルを作成し、先ほど�
 
 # 6. ngrokのインストール
 ngrokとは開発サーバーを公開するためのツールです。slackのslash commandに使います。
-[ngrokダウンロードページ](https://ngrok.com/download)からngrokをダウンロードし解凍します。解凍したフォルダ内のngrok.exeを実行し、ngrokし、以下のコマンドを実行します。
+[ngrokダウンロードページ](https://ngrok.com/download)からngrokをダウンロードし解凍します。解凍したフォルダ内のngrok.exeを実行し、ngrokし、xamppのサーバーを立ち上げてから以下のコマンドを実行します。
+
+<div align="center">
+<img width="492" alt="image" src="https://user-images.githubusercontent.com/54432132/196305971-f650825e-8162-4dd9-b465-7606d020e9c5.png" width="80%">
+<figcaption>サーバー立ち上げ</figcaption>
+</div>
 
 >ngrok http {ローカルサーバーのurl}  
 >例 ngrok http localhost:80

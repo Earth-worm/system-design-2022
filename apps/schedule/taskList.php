@@ -1,6 +1,5 @@
 <?php
     session_start();
-    include("utils.php"); #Scheduleクラスを読み込む
     require_once "../vendor/autoload.php";
     $loader = new \Twig\Loader\FilesystemLoader('view');
     $twig = new \Twig\Environment($loader);

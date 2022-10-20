@@ -5,12 +5,15 @@
     $date = NULL;
     $time = NULL;
     $holiday = NULL;
+    
+    #引数が与えられているか
     if(strcmp($_POST["text"],"")!=0){
         $text = $_POST["text"];
         $text = str_replace(array("\r\n","\r"),"\n",$text);
         $arr = explode("\n",$text);
         $count = count($arr);
         #var_dump($arr);
+        #引数の数が2以下ならエラー
         if($count < 2){
             array_push($errors,"日付が設定されていません。");
         }else{
@@ -21,8 +24,9 @@
                 #var_dump($dateArr);
                 array_push($errors,"日付入力に誤りがあります。");
             }
-
         }
+
+        #引数の数に誤りがある場合
         if($count > 2 and $count < 5){
             $holiday = (strcmp($arr[2],"T") == 0);
             if(!$holiday){
@@ -34,6 +38,8 @@
                 }
             }
         }
+
+        #引数の数が4つなら時間を設定する。
         if($count == 4){
             $time = $arr[3];
             $timeArr = explode(":",$time);
@@ -45,6 +51,8 @@
     }else{
         array_push($errors,"タスクが設定されていません。");
     }
+
+    #エラーが挙げられなければ
     if(count($errors)==0){
         sendMessage($_POST["user_id"],$name."を作成しました。");
         $db = new Sqlite3("db.sqlite3");

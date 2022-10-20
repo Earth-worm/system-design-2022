@@ -6,13 +6,17 @@
     $twig = new \Twig\Environment($loader);
     use Ramsey\Uuid\Uuid;
     
+    #ログインされてれば表示ページを変更
     $isAuthenticated = false;
     if(isset($_SESSION["id"])){
         $isAuthenticated = $_SESSION["name"];
     }
     $errors = array();
     $isSuccess = false;
+
+    #postされたらサインイン処理
     if($_SERVER["REQUEST_METHOD"]=="POST"){
+        #postされた情報が有効か判別
         if(empty($_POST["name"])){
             array_push($errors,"名前が入力されていません。");
         }
@@ -32,6 +36,8 @@
         if(!$slack->ok){
             array_push($errors,"このメールアドレスはSlackに追加されていません。");
         }
+
+        #エラーが挙げられなければアカウント作成
         if(empty($errors)){
             $uuid = $slack->user->id;
             $name = $_POST["name"];

@@ -6,10 +6,13 @@
 
     $errors = array();
     $isSuccess = false;
+    #ログインされていれば表示を変更
     $isAuthenticated = isset($_SESSION["id"]);
     if($isAuthenticated){
         $isAuthenticated = $_SESSION["name"];
     }
+
+    #postされたらログイン処理
     if($_SERVER["REQUEST_METHOD"]=="POST" and !$isAuthenticated){
         if(empty($_POST["email"])){
             array_push($errors,"メールが入力されていません。");
@@ -23,7 +26,10 @@
         if(!$tmp){
             array_push($errors,"メールアドレスが間違っています。");
         }
+
+        #errorsにエラーが挙げられているか
         if(empty($errors)){
+            #パスワードがあっているか
             $hash_pass = hash("sha256",$_POST["password"]);
             if(strcmp($hash_pass,$tmp["pass"])!=0){
                 array_push($errors,"パスワードが間違っています。");

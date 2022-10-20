@@ -1,11 +1,13 @@
 <?php
     session_start();
-    include("utils.php");
+    include("utils.php"); #Scheduleクラスを読み込む
     require_once "../vendor/autoload.php";
     $loader = new \Twig\Loader\FilesystemLoader('view');
     $twig = new \Twig\Environment($loader);
     $db = new Sqlite3("db.sqlite3");
     $url = "/schedule/tasklist";
+
+    #ログインされていれば表示ページを変更
     $isAuthenticated = isset($_SESSION["id"]);
     $html = NULL;
     $errors = array();
@@ -13,7 +15,9 @@
     $id = NULL;
     $token = NULL;
     $getDate=array();
+    #ログインしているか、ワンタイムトークンが発行されていればタスクを表示
     if($isAuthenticated or isset($_GET["token"])){
+        #トークンが正しいかどうかの判別
         if(isset($_GET["token"])){
             $rtn = $db->query("select * from token where url='".$_GET["token"]."'");
             if($rtn->fetchArray()){
@@ -36,6 +40,8 @@
                 }
             }
         }
+
+        #getで対象の月が指定されているか
         if(isset($_GET["month"])){
             $month = $_GET["month"];
         }
@@ -43,9 +49,13 @@
             $id = $isAuthenticated;
             $schedule = new Schedule($month);
             $rtn = $db->query("select * from task where user_id = '".$id."' and date like '".$month."%'");
+            
+            #スケジュールクラスにタスクを追加
             while($row = $rtn->fetchArray()){
                 $schedule->addTask(intval(substr($row["date"],-2)),$row["name"],$row["holiday"]==1,$row["time"],$row["id"]);
             }
+
+            #html文の作成
             $html =  $schedule->genHTML($url,$token);
         }
     }

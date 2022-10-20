@@ -1,16 +1,4 @@
 <?php
-    function include_app($_dir){
-        global $urls;
-        include "apps/".$_dir."/urls.php";
-        foreach($appUrls as $url => $fileName){
-            $urls["/".$_dir."/".$url] = "apps/".$_dir."/".$fileName;
-        }
-    }
-    #アプリごとにurlを記載する関数
-    #urls.phpと同じディレクトリに$_dirと同じ名前のフォルダを作成
-    #->中にurls.phpを作成
-    #->urls.phpに$appUrlsという名で仮想連想配列を作成(key:url,value:ファイル名)
-    #static fileは#static/{$_appName}/{$fileName}に保存
     require_once '../vendor/autoload.php';
     $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
@@ -26,15 +14,16 @@
     include_app("auth");
     include_app("schedule");
     include_app("slash");
-    if(array_key_exists($request_url,$urls)){
+
+    if(array_key_exists($request_url,$urls)){#リクエストされたページが存在する。
         include $urls[$request_url];
-    }else{
+    }else{ #staticファイルか404のどっちか。
         $fileName = substr($request_url,1);
-        if($file = @file_get_contents($fileName)){
+        if($file = @file_get_contents($fileName)){ #staticファイルが存在する
             header("Content-Type: ".mime_content_type($fileName));
             header("Content-Length: " . strlen($file));
             echo $file;
-        }else{
+        }else{#staticもない
             header("HTTP/1.1 404 Not Found");
             include ("404.php");
             exit;

@@ -41,15 +41,31 @@
 ├── .env 環境変数の保存先  
 └── .htaccess 内部リダイレクト設定ファイル  
 </pre>
-* スケジュールの表示
-<img src="https://user-images.githubusercontent.com/54432132/195247053-7ddc8fc9-d0ca-426f-8448-76686e638961.jpg" width=""><p>スケジュール表示</p>
+
+* タスクの作成
+
+タスクを設定することができます。<br>
+タスクの詳細にはタスク名、日付、時間、休日があります。<br>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/195247054-c7b94fde-352f-4e29-9494-09ce885e6904.jpg" width=""><p>スケジュール作成</p>
+</div>
 <hr>
 
-* スケジュールの作成
-<img src="https://user-images.githubusercontent.com/54432132/195247054-c7b94fde-352f-4e29-9494-09ce885e6904.jpg" width=""><p>スケジュール作成</p>
+* スケジュールの表示
+
+作成されたタスクをカレンダー上に表示します。<br>
+ページ上の月入力フォームから任意の月を指定できます。<br>
+休日は灰色で強調されます。<br>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/195247053-7ddc8fc9-d0ca-426f-8448-76686e638961.jpg" width=""><p>スケジュール表示</p>
+</div>
 <hr>
 
 * slackのスラッシュコマンドからスケジュールの作成
+
+slackのスラッシュコマンドからタスクを作成できます。<br>
+休日と時刻は省略可能です。<br>
+
 >/task {名前}<br>
 >{日にち}<br>
 >{休日か T or F}<br>
@@ -59,10 +75,29 @@
 >2022-04-13<br>
 >T<br>
 >12:00<br>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/199147466-e6ebea8a-5615-467a-8ae7-2b78bc5ff209.jpg" width="80%"><p>slack上でタスクの作成</p>
 <hr>
 
 * slackのスラッシュコマンドからスケジュールの表示
+チームメイトのスケジュールを確認することができます。<br>
+botからスケジュールのリンクが送られてきます。リンクの有効期限は15分です。<br>
+
 >/schedule @user
+
+<br>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/199147341-66e9eded-3bf0-4141-a7e3-58fcfe7e967e.jpg" width="80%"><p>チームメイトのスケジュール表示</p>
+</div>
+<hr>
+
+* スケジュールのリマインド
+朝七時に当日のスケジュールのリマインドを行います。
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/199147130-61a78efc-20a2-488a-be0b-a1789b833c61.jpg" width="70%"><p>スケジュールのリマインド</p>
+</div>
+<hr>
 <br>
 
 # 機能とURL
@@ -101,7 +136,9 @@
 開発環境の構築にXAMPPを用います。  
 アプリケーションの開発には様々なソフトウェアが必要です。XAMPPとはそれらソフトウェアをまとめて扱うことができるツールです。  
 [XAMPPダウンロードページ](https://www.apachefriends.org/jp/download.html)からXAMPPのインストーラをダウンロードし、実行してください。
+<div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/195221899-3313dc6a-5691-4b68-b66b-03b250c92ccb.jpg" width=""><pn>XAMPPダウンロード</p>
+</div>
 <br>
 成功するとxampp control panelが使えるようになります。<br>
 <img src="https://user-images.githubusercontent.com/54432132/195582301-e6741f6e-4328-4d68-bc8e-812682c8c4cc.jpg" width="">

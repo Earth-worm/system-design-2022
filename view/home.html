@@ -4,11 +4,85 @@
 {%block contents%}
 {%if isAuthenticated%}
 <div class="container">
-    <div class="tools">
-        <div class="row schedule">
-            <a href="/schedule/tasklist"><h3>Schedule</h3></a>
-            <a href="/schedule/createtask"><h3>Create Task</h3></a>
-            <a href="/schedule/edittask"><h3>Edit Task</h3></a>
+    <h1>機能一覧</h1>
+    <div>
+        <div class="row">
+            <h3 class="border-start border-5 border-secondary">&nbsp;<a href="/schedule/createtask" class="link-secondary">スケジュールの作成</a></h3>
+            <p class="lead">
+                タスクを設定することができます。<br>
+                タスクの詳細にはタスク名、日付、時間、休日があります。<br>
+            </p>
+            <div align="center">
+                <img src="statics/imgs/createtask.jpg" alt="" width="70%">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <h3 class="border-start border-5 border-secondary">&nbsp;<a href="/schedule/tasklist" class="link-secondary">スケジュールの確認</a></h3>
+            <p class="lead">
+                作成されたタスクをカレンダー上で表示します。<br>
+                ページ上の月入力フォームから任意の月を指定できます。<br>
+                休日は灰色で強調されます。<br>
+            </p>
+            <div align="center">
+                <img src="statics/imgs/schedule2.jpg" alt="" width="60%">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <h3 class="border-start border-5 border-secondary">&nbsp;タスクの編集</h3>
+            <p class="lead">
+                <a>タスクの確認画面</a>のタスク名にはタスクの編集ページのリンクが乗せられています<br>
+                タスクの編集と削除ができます。
+            </p>
+            <div align="center">
+                <img src="statics/imgs/edit.jpg" alt="" width="70%">
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="border-start border-5 border-secondary">&nbsp;スラッシュコマンドでのタスクの作成</h3>
+            <p class="lead">
+                slackのチャット画面からタスクを作成することができます。休日と時刻は省略可能です。
+            </p>
+            <p class="border-start border-2">
+                &nbsp;/task {名前}<br>
+                &nbsp;{日にち}<br>
+                &nbsp;{休日か T or F}<br>
+                &nbsp;{時間}<br>
+                &nbsp;<br>
+                &nbsp;例 /task 誕生日<br>
+                &nbsp;2022-04-13<br>
+                &nbsp;T<br>
+                &nbsp;12:00<br>
+            </p>
+            <div align="center">
+                <img src="statics/imgs/slashcreatetask.jpg" alt="" width="40%">
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <h3 class="border-start border-5 border-secondary">&nbsp;スラッシュコマンドでのタスクの確認</h3>
+            <p class="lead">
+                チームメイトのスケジュールを確認することができます。<br>
+                次のコマンドをslackのチャットに打ち込むとbotからリンクが送られます。<br>
+                リンクの有効期限は15分です。
+            </p>
+            <p class="border-start border-2">
+                &nbsp;/schedule @user
+            </p>
+            <div align="center">
+                <img src="statics/imgs/slashschedule2.jpg" alt="" width="40%">
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <h3 class="border-start border-5 border-secondary">&nbsp;スケジュールのリマインド</h3>
+            <p class="lead">
+                朝七時に当日のスケジュールのリマインドを行います。
+            </p>
+        </div>
+        <div align="center">
+            <img src="statics/imgs/notice.jpg" alt="" width="40%">
         </div>
     </div>
 </div>

@@ -203,7 +203,7 @@ webアプリで扱う情報は基本的にデータベース(DB)に保管され�
 <img src="https://user-images.githubusercontent.com/54432132/195224288-1f57f66c-e7d5-45c9-bd92-e02a648377f4.jpg" width=""><p>sqlite installer</p>
 </div>
 
-次にphpでsqliteを扱う設定を行ないます。xampp control panelを開き、Apachのconfigからphp.iniをクリックします。するとphp.iniファイルがメモ帳で開かれるのでsqlite3と検索し*extends="sqlite3"*と書かれた行のコメントアウト(;)を外します。
+次にphpでsqliteを扱うための設定を行います。xampp control panelを開き、Apachのconfigからphp.iniをクリックします。するとphp.iniファイルがメモ帳で開かれるのでsqlite3と検索し***extension=sqlite3***と書かれた行のコメントアウト(;)を外します。
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/199738497-305d5da3-a3fe-4bdc-9088-be2fd6054836.jpg" width="80%"><p>php.iniの開き方</p>

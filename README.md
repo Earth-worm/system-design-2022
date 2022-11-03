@@ -147,8 +147,11 @@ botからスケジュールのリンクが送られてきます。リンクの�
 </div>
 <br>
 成功するとxampp control panelが使えるようになります。<br>
+
+<div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/195582301-e6741f6e-4328-4d68-bc8e-812682c8c4cc.jpg" width="">
 <p>XAMPP control panel</p><br>
+</div>
 
 # 2. composerのインストール
 composerとはプログラムに使う拡張機能(パッケージ)を管理するツールで、パッケージをインストールするのに使います。  
@@ -173,23 +176,42 @@ xampp control panelからshellを開き、以下のコマンドを実行。
 
 >composer show -i
 
-<img src="https://user-images.githubusercontent.com/54432132/195586014-cf316a07-464b-42f3-9ec7-afcd3c4d107b.jpg" width="">*パッケージ一覧*
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/195586014-cf316a07-464b-42f3-9ec7-afcd3c4d107b.jpg" width="">
+<p>パッケージ一覧</p>
+</div>
 
 # 3. プログラムのインストール
 phpを実行する設定は終わりました。次にこのシステムをインストールします。  
 [github](https://github.com/Earth-worm/system-design-2022)からzipとしてダウンロードし、xampp/htdocsフォルダに展開してください。
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/195223688-3130d9f2-5b55-430f-8ffa-d0c05029ab62.jpg" width=""><p>git download</p>
+</div>
 
 xampp/htdocsフォルダの中身は次のようになります。2,3個関係ないファイルがありますが、気にしないでください。
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/195588366-56117042-fa59-4408-b273-d5d11f737218.jpg" width=""><p>htdocs中身</p>
+</div>
 
 # 4. sqlite3のインストール
 webアプリで扱う情報は基本的にデータベース(DB)に保管されます。このシステムではDBにsqliteを用います。  
 [sqlite3ダウンロードページ](https://www.sqlite.org/download.html)からツールをダウンロードし、ダウンロードしたフォルダ内からsqlite3.exeをxampp/htdocsに設置してください。
 
+<div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/195224288-1f57f66c-e7d5-45c9-bd92-e02a648377f4.jpg" width=""><p>sqlite installer</p>
+</div>
+
+次にphpでsqliteを扱う設定を行ないます。xampp control panelを開き、Apachのconfigからphp.iniをクリックします。するとphp.iniファイルがメモ帳で開かれるのでsqlite3と検索し*extends="sqlite3"*と書かれた行のコメントアウト(;)を外します。
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/199738497-305d5da3-a3fe-4bdc-9088-be2fd6054836.jpg" width=""><p>php.iniの開き方</p>
+</div>
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/54432132/199738749-a6ad968e-fb39-4f80-ad7b-58c2e2e23207.jpg" width=""><p>コメントアウト</p>
+</div>
 
 コマンドプロンプト(cmd)からhtdocsディレクトリへ移動して次のコマンドを入力し、データベースのテーブルを取得できれば成功です。
 
@@ -238,12 +260,12 @@ htdocsフォルダに.envという名前でファイルを作成し、先ほど�
 >Url=""
 
 # 6. ngrokのインストール
-ngrokとは開発サーバーを公開するためのツールです。slackのslash commandに使います。
-[ngrokダウンロードページ](https://ngrok.com/download)からngrokをダウンロードし解凍します。解凍したフォルダ内のngrok.exeを実行し、開発のサーバーを立ち上げてから以下のコマンドを実行します。
+ngrokとは開発するためのローカルサーバーを公開するためのツールです。slackのslash commandに使います。
+[ngrokダウンロードページ](https://ngrok.com/download)からngrokをダウンロードし解凍します。解凍したフォルダ内のngrok.exeを実行し、ローカルサーバーを立ち上げてから以下のコマンドを実行します。
 
 <div align="center">
 <img width="492" alt="image" src="https://user-images.githubusercontent.com/54432132/196305971-f650825e-8162-4dd9-b465-7606d020e9c5.png" width="80%">
-<p>サーバー立ち上げ</p>
+<p>ローカルサーバー立ち上げ</p>
 </div>
 
 >ngrok http {ローカルサーバーのurl}  
@@ -255,7 +277,7 @@ ngrokとは開発サーバーを公開するためのツールです。slackのs
 
 成功すると下の画像のようにurlが発行され、開発サーバーが公開されます。  
 >**Note**  
->初回にurlにアクセスすると、トークンをの入力を求められるます。ngrokの指示に従ってください。
+>urlへの初回アクセスではサーバーサイドでトークンをの入力を求められるます。ngrokの指示に従ってください。
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/195240942-a48a6aad-f925-4ef1-a433-871433fb0f32.jpg" width="80%"><p>ngrok url</p>
@@ -273,11 +295,13 @@ ngrokとは開発サーバーを公開するためのツールです。slackのs
 </div>
 
 create new commandから次の二つのコマンドを作成します。{URL}にはngrokのurlを記載してください。
+>**Warning**  
+>/scheduleコマンドの設定では画像のチェックボックスにチェックを入れてください。
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/54432132/195242159-c82a4c5c-1ee2-4328-9019-e65950bfd970.jpg" width="70%">
 
-<img src="https://user-images.githubusercontent.com/54432132/195242166-1c87271b-2962-4d43-a5d2-278c734f7f27.jpg" width="70%">
+<img src="https://user-images.githubusercontent.com/54432132/199739881-5d195df5-4930-4637-af37-7b62a8839c10.jpg" width="70%">
 <p>スラッシュコマンド</p>
 </div>
 <br>
@@ -304,7 +328,7 @@ htdocs/cronフォルダ内の以下のファイルにファイルのパスを記
 <img src="https://user-images.githubusercontent.com/54432132/195638039-ca312672-7f8c-484f-8290-c4464fd181bf.jpg" width=""><p>タスクスケジューラ</p>
 
 各プログラムは次のように設定します。
-* batch.vbs
+* batch.vbs  
 名前:notification<br>
 トリガー:毎日<br>
 開始:次の朝7時<br>
@@ -313,7 +337,7 @@ htdocs/cronフォルダ内の以下のファイルにファイルのパスを記
 プログラム:wscript<br>
 引数:batch.vbsのパス<br>
 
-* deleteTokenBatch.vbs
+* deleteTokenBatch.vbs  
 名前:deleteToken<br>
 トリガー:パソコン起動時<br>
 操作:プログラムの実行<br>

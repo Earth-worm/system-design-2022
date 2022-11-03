@@ -206,11 +206,11 @@ webアプリで扱う情報は基本的にデータベース(DB)に保管され�
 次にphpでsqliteを扱う設定を行ないます。xampp control panelを開き、Apachのconfigからphp.iniをクリックします。するとphp.iniファイルがメモ帳で開かれるのでsqlite3と検索し*extends="sqlite3"*と書かれた行のコメントアウト(;)を外します。
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/54432132/199738497-305d5da3-a3fe-4bdc-9088-be2fd6054836.jpg" width=""><p>php.iniの開き方</p>
+<img src="https://user-images.githubusercontent.com/54432132/199738497-305d5da3-a3fe-4bdc-9088-be2fd6054836.jpg" width="80%"><p>php.iniの開き方</p>
 </div>
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/54432132/199738749-a6ad968e-fb39-4f80-ad7b-58c2e2e23207.jpg" width=""><p>コメントアウト</p>
+<img src="https://user-images.githubusercontent.com/54432132/199738749-a6ad968e-fb39-4f80-ad7b-58c2e2e23207.jpg" width="80%"><p>コメントアウト</p>
 </div>
 
 コマンドプロンプト(cmd)からhtdocsディレクトリへ移動して次のコマンドを入力し、データベースのテーブルを取得できれば成功です。
